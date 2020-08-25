@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'bmi_app.dart';
+import 'constants.dart';
 
 const primaryHeaderColor = Color(0xFF1788ff);
 const scaffoldColor = Color(0xFFFEFEFE);

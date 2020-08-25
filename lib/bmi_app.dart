@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'reusable_expanded.dart';
-import 'icon_text.dart';
-
-const activeColor = Color(0xFFFDFDFD);
-const inActiveColor = Color(0xFFEDEDED);
-const blueButtonColor = Color(0xFF1788ff);
-const blueButtonHeight = 55.0;
-const darkTextColor = Color(0xFF1E1E1E);
+import 'reusable_card.dart';
+import 'icon_text_box.dart';
+import 'constants.dart';
 
 class MyBMIApp extends StatefulWidget {
   @override
@@ -15,7 +10,6 @@ class MyBMIApp extends StatefulWidget {
 }
 
 class _MyBMIAppState extends State<MyBMIApp> {
-
 //  void updateColor(CardType gender) {
 //    if (gender == CardType.male) {
 //      maleCardColor = activeColor;
@@ -26,7 +20,8 @@ class _MyBMIAppState extends State<MyBMIApp> {
 //      maleCardColor = inActiveColor;
 //    }
 //  }
-  CardType selectedCard;
+  Gender selectedGender;
+  int heightInt = 140;
 
   @override
   Widget build(BuildContext context) {
@@ -37,53 +32,92 @@ class _MyBMIAppState extends State<MyBMIApp> {
           child: Row(
             children: <Widget>[
               Expanded(
-                child: GestureDetector(
-                  onTap: () {
+                child: ReusableCard(
+                  genderChooser: () {
                     setState(() {
-                      selectedCard = CardType.male;
+                      selectedGender = Gender.male;
                     });
                   },
-                  child: ReusableExpanded(
-                    colour: selectedCard == CardType.male ? activeColor : inActiveColor,
-                    cardChild: IconTextBox(
-                        iconContent: FontAwesomeIcons.mars,
-                        textContent: 'MALE'),
-                  ),
+                  colour: selectedGender == Gender.male
+                      ? kActiveColor
+                      : kInactiveColor,
+                  cardChild: IconTextBox(
+                      iconContent: FontAwesomeIcons.mars, textContent: 'MALE'),
                 ),
               ),
               Expanded(
-                child: GestureDetector(
-                  onTap: () {
+                child: ReusableCard(
+                  genderChooser: () {
                     setState(() {
-                      selectedCard = CardType.female;
+                      selectedGender = Gender.female;
                     });
                   },
-                  child: ReusableExpanded(
-                    colour: selectedCard == CardType.female ? activeColor : inActiveColor,
-                    cardChild: IconTextBox(
-                        iconContent: FontAwesomeIcons.venus,
-                        textContent: 'FEMALE'),
-                  ),
+                  colour: selectedGender == Gender.female
+                      ? kActiveColor
+                      : kInactiveColor,
+                  cardChild: IconTextBox(
+                      iconContent: FontAwesomeIcons.venus,
+                      textContent: 'FEMALE'),
                 ),
               ),
             ],
           ),
         ),
         Expanded(
-            child: ReusableExpanded(colour: activeColor)), // FullWidth Row
+            child: ReusableCard(
+          colour: kActiveColor,
+          cardChild: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'HEIGHT',
+                style: kSmallLabelStyle,
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.baseline,
+                textBaseline: TextBaseline.alphabetic,
+                children: [
+                  Text(
+                    heightInt.toString(),
+                    style: kHeavyLabelStyle,
+                  ),
+                  Text(
+                    'cms',
+                    style: kSmallLabelStyle,
+                  ),
+                ],
+              ),
+              Slider(
+                value: heightInt.toDouble(),
+                min: 120.0,
+                max: 200.0,
+                onChanged: (double newValue){
+                  setState(() {
+                    heightInt = newValue.round();
+                  });
+
+                },
+              )
+            ],
+          ),
+        )), // FullWidth Row
         Expanded(
           //Bottom Row
           child: Row(
             children: [
-              Expanded(child: ReusableExpanded(colour: activeColor)),
-              Expanded(child: ReusableExpanded(colour: activeColor)),
+              Expanded(child: ReusableCard(colour: kActiveColor)),
+              Expanded(child: ReusableCard(colour: kActiveColor)),
             ],
           ),
         ),
         Container(
-          color: blueButtonColor,
+          color: kBlueButtonColor,
           width: double.infinity,
-          height: blueButtonHeight,
+          height: kBlueButtonHeight,
           margin: EdgeInsets.only(top: 10.0),
         ),
       ],
@@ -91,4 +125,4 @@ class _MyBMIAppState extends State<MyBMIApp> {
   }
 }
 
-enum CardType { male, female }
+enum Gender { male, female }

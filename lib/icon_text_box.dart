@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-const blueButtonColor = Color(0xFF1788ff);
-const blueTextColor = Color(0xFF1788ff);
+import 'constants.dart';
+
+
 class IconTextBox extends StatelessWidget {
   IconTextBox({@required this.iconContent, @required this.textContent});
   final IconData iconContent;
@@ -13,18 +14,14 @@ class IconTextBox extends StatelessWidget {
         Icon(
           iconContent,
           size: 45.0,
-          color: blueButtonColor,
+          color: kBlueButtonColor,
         ),
         SizedBox(
           height: 10.0,
         ),
         Text(
           textContent,
-          style: TextStyle(
-            color: blueTextColor,
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-          ),
+          style: kSmallLabelStyle,
         )
       ],
     );

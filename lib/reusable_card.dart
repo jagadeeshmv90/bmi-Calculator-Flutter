@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
+import 'constants.dart';
 
-class ReusableExpanded extends StatelessWidget {
-  ReusableExpanded({@required this.colour, this.cardChild});
+class ReusableCard extends StatelessWidget {
+
+  ReusableCard({@required this.colour, this.cardChild, this.genderChooser});
   final Color colour;
   final Widget cardChild;
+  final Function genderChooser;
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          color: colour,
-          boxShadow: [
-            BoxShadow(
-              color: Color(0xFFBBBBBB),
-              blurRadius: 3.0,
-              spreadRadius: 0.2,
-            ),
-          ],
-        ),
-        margin: EdgeInsets.all(10.0),
-        child: cardChild,
+    return GestureDetector(
+      onTap: genderChooser,
+      child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            color: colour,
+            boxShadow: kSubtleShadow,
+          ),
+          margin: EdgeInsets.all(10.0),
+          child: cardChild,
+      ),
     );
   }
 }
+
