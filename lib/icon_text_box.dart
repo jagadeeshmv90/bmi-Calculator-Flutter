@@ -14,7 +14,7 @@ class IconTextBox extends StatelessWidget {
         Icon(
           iconContent,
           size: 45.0,
-          color: kBlueButtonColor,
+          color: kBigButtonColor,
         ),
         SizedBox(
           height: 10.0,
@@ -24,6 +24,28 @@ class IconTextBox extends StatelessWidget {
           style: kSmallLabelStyle,
         )
       ],
+    );
+  }
+}
+
+
+class RoundIconButton extends StatelessWidget {
+  RoundIconButton({this.icon, this.tweakFn});
+  final IconData icon;
+  final Function tweakFn;
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      onPressed: tweakFn,
+      shape: CircleBorder(),
+      fillColor: kBigButtonColor,
+      constraints: BoxConstraints.tightFor(
+        width: 40.0,
+        height: 40.0,
+      ),
+      child: Icon(
+        icon,
+      ),
     );
   }
 }
